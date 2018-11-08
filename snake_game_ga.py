@@ -6,7 +6,7 @@ from neuralNetwork_API import *
 height = 800
 width =  800
 rezolution = 10
-fps = 10
+fps = 20
 populationSize = random.randint(1,10000)
 savedSnakes = []
 snakes = []
