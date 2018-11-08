@@ -6,8 +6,9 @@ from neuralNetwork_API import *
 height = 800
 width =  800
 rezolution = 10
-fps = 20
-populationSize = random.randint(1,10000)
+fps = 200
+#populationSize = random.randint(1,10000)
+populationSize = 3000
 savedSnakes = []
 snakes = []
 bestSnakesOfEachGen = []
@@ -16,7 +17,7 @@ def nextGeneration():
     global savedSnakes,snakes
     print("New Generation")
     calcFitness()
-    for i in range(populationSize-3):
+    for i in range(populationSize-1):
         snakes.append(pickOne())
     savedSnakes = []
     return snakes
@@ -132,7 +133,7 @@ class Snake:
 
     def draw(self):
         for i in range(len(self.body)):
-            game.draw.rect(window, game.Color(120,120,120),(self.body[i][0],self.body[i][1],rezolution,rezolution))
+            game.draw.rect(window, game.Color(255,255,255),(self.body[i][0],self.body[i][1],rezolution,rezolution))
 
 
     def setDir(self,x,y):
@@ -162,7 +163,7 @@ class Snake:
             self.newFood()
 
     def showFood(self):
-        game.draw.rect(window, (100,0,0),(self.food[0],self.food[1],rezolution,rezolution))
+        game.draw.rect(window, (255,0,0),(self.food[0],self.food[1],rezolution,rezolution))
 
 game.init()
 for i in range(populationSize):
@@ -224,7 +225,7 @@ while run:
             game.draw.line(window,(0,0,255),(x+rezolution,y+rezolution),(x,y+rezolution),rezolution/10)
             game.draw.line(window,(0,0,255),(x,y+rezolution),(x,y),rezolution/10)
 
-    if (currentGen < 100 and len(snakes) < 3):
+    if (currentGen < 100 and len(snakes) < 2):
         snakes = []
         snakes = nextGeneration()
         currentGen += 1
