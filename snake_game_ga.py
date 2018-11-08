@@ -231,7 +231,7 @@ while run:
 
 
     textsurface2 = myfont.render("Gen: "+str(currentGen),False, (255,255,255))
-    window.blit(textsurface,(width-rezolution*10,height/20))
+    window.blit(textsurface,(width-rezolution*50,height/20))
     window.blit(textsurface2,(0+rezolution*3,height/20))
 
     game.display.update()
