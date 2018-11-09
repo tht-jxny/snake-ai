@@ -6,39 +6,42 @@ from neuralNetwork_API import *
 height = 800
 width =  800
 rezolution = 10
-fps = 200
+fps = 60
 #populationSize = random.randint(1,10000)
-populationSize = 3000
+populationSize = 100
 savedSnakes = []
 snakes = []
 bestSnakesOfEachGen = []
-
-def nextGeneration():
-    global savedSnakes,snakes
+xy = 1
+def nextGeneration(RestSnakes):
+    global savedSnakes,snakes,xy
+    xy = 1
     print("New Generation")
     calcFitness()
     for i in range(populationSize-1):
-        snakes.append(pickOne())
+        snakes.append(pickOne(RestSnakes,xy))
     savedSnakes = []
     return snakes
 
-def pickOne():
-    global savedSnakes, currentGen,highscore
+def pickOne(RestSnakes,x):
+    global savedSnakes, currentGen,highscore, xy
     index = 0
     r = random.uniform(0.0,1.0)
 
     while (r > 0 and index <99):
-        r = r - savedSnakes[index].fitness
+        r = r - savedSnakes[index-RestSnakes].fitness
         index += 1
-    parent = savedSnakes[index-1]
+    parent = savedSnakes[index-5]
     bestSnakesOfEachGen.append(parent)
     if currentGen > 350 or highscore > 300:
         filename =  "genData/best_of_all.npy"
         parent.brain.saveNetwork(filename)
-    filename =  "genData/best_of_gen_"+str(currentGen) +".npy"
-    parent.brain.saveNetwork(filename)
+    if xy != 0:
+        filename =  "genData/best_of_gen_"+str(currentGen) +".npy"
+        parent.brain.saveNetwork(filename)
     child = Snake(parent.brain)
-    child.brain.mutate(0.01)
+    child.brain.mutate(0.1)
+    xy = 0
     return child
 
 def calcFitness():
@@ -202,6 +205,7 @@ while run:
         snake.update()
         snake.showFood()
         if snake.score> highscore:
+            i = 0
             highscore = snake.score
         if snake.endGame() :
             savedSnakes.append(snake)
@@ -225,10 +229,21 @@ while run:
             game.draw.line(window,(0,0,255),(x+rezolution,y+rezolution),(x,y+rezolution),rezolution/10)
             game.draw.line(window,(0,0,255),(x,y+rezolution),(x,y),rezolution/10)
 
-    if (currentGen < 100 and len(snakes) < 2):
+    if (currentGen < 350 and len(snakes) < 2):
         snakes = []
-        snakes = nextGeneration()
+        snakes = nextGeneration(1)
         currentGen += 1
+        i= 0
+        highscore = 0
+    if (i>1000):
+        highscore = 0
+        i = 0
+        left = len(snakes)
+        print(left)
+        snakes = []
+        snakes = nextGeneration(left+populationSize/20)
+        currentGen += 1
+
 
 
     textsurface2 = myfont.render("Gen: "+str(currentGen),False, (255,255,255))
@@ -237,4 +252,5 @@ while run:
 
     game.display.update()
     i += 1
+    print(i)
 game.quit()
