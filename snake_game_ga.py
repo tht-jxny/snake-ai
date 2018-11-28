@@ -14,6 +14,8 @@ snakes = []
 bestSnakesOfEachGen = []
 xy = 1
 def nextGeneration(RestSnakes):
+    for i in range (100):
+        snakes.append(Snake(5))
     global savedSnakes,snakes,xy
     xy = 1
     print("New Generation")
