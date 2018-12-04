@@ -2,11 +2,11 @@ import random, copy
 from ga import *
 from neuralNetwork_API import *
 
-height = 800
-width =  800
+height = 600
+width =  600
 rezolution = 10
 fps = 60
-populationSize = 1000
+populationSize = 10000
 savedSnakes = []
 snakes = []
 bestSnakesOfEachGen = []
