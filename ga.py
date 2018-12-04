@@ -1,11 +1,9 @@
 #from snake_game_ga import *
 
 def getInputArray(snake,width,height):
-    xPosDistToWall = (snake.body[len(snake.body)-1][0] - width) * -1
-    yPosDistToWall = (snake.body[len(snake.body)-1][1] - height) * -1
-    xNegDistToWall = snake.body[len(snake.body)-1][0]
-    yNegDistToWall = snake.body[len(snake.body)-1][1]
-    finalArray= [xPosDistToWall,yPosDistToWall,xNegDistToWall,yNegDistToWall]
+    xCoord = snake.body[len(snake.body)-1][0]
+    yCoord = snake.body[len(snake.body)-1][1]
+    finalArray= [xCoord,yCoord]
     xPosDistToBody = 0
     yPosDistToBody = 0
     xNegDistToBody = 0
@@ -27,21 +25,9 @@ def getInputArray(snake,width,height):
 
     finalArray2 = [xPosDistToBody,yPosDistToBody,xNegDistToBody,yNegDistToBody]
     finalArray += finalArray2
-    xPosDistToFood = 0
-    yPosDistToFood = 0
-    xNegDistToFood = 0
-    yNegDistToFood = 0
-    xDist = snake.food[0] - snake.body[len(snake.body)-1][0]
-    yDist = snake.food[1] - snake.body[len(snake.body)-1][1]
-    if xDist > 0:
-        xPosDistToFood = xDist
-    else:
-        xNegDistToFood = xDist * -1
-    if yDist > 0:
-        yPosDistToFood = yDist
-    else:
-        yNegDistToFood = yDist * -1
-    finalArray2 = [xPosDistToFood,yPosDistToFood,xNegDistToFood,yNegDistToFood]
+    xFoodCoord = snake.food[0]
+    yFoodCoord = snake.food[1]
+    finalArray2 = [xFood,Coord,yFoodCoord]
     finalArray += finalArray2
     for i in range(len(finalArray)):
         finalArray[i] /= 1000.0

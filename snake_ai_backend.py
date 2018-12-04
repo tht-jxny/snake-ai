@@ -82,7 +82,7 @@ class Snake:
         if type(brain)!= int:
             self.brain = copy.copy(brain)
         else:
-            self.brain = neuralNetwork(12,20,5,0.2)
+            self.brain = neuralNetwork(8,25,5,0.15)
         self.lastDecisions = []
         self.fitness = 0
 
